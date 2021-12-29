@@ -1,0 +1,42 @@
+<div>
+  <div class="row">
+    <nav class="logo-casal">
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo ">
+          <img class="circle" src="img/logo.jpeg"/>
+        </a>
+      </div>
+    </nav>
+    <div class="row">
+      <ul class="tabs col s12">
+        <li class="tab col s4" ng-repeat="tab in tabs">
+          <a ng-click="changeTab(tab._id, tab.name)">{{tab.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <div id="tabs-body">
+      <div class="row" ng-if="produtos.length > 0" ng-repeat="produto in produtos">
+        <div class="col s10 offset-s1">
+          <div class="card">
+            <div class="card-image">
+              <img class="activator" src="{{buket}}{{produto.img}}">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">{{produto.nome}} <i class="material-icons right">arrow_drop_up</i></span>
+              <p><a target="_blank" href="{{produto.link}}"> <i class="material-icons right">insert_link</i> Site para compra</a></p>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{produto.nome}} <i class="material-icons right">arrow_drop_down</i></span>
+              <p>{{produto.descricao}}</p>
+              <br>
+              <p>Preço {{produto.valor | currency:"R$":2 }}</p>
+            </div>
+          </div>
+        </div>		
+      </div>
+      <div class="row corsiva sem-produto" ng-if="produtos.length == 0">
+        Nenhum produto encontrado
+      </div>	
+    </div>
+  </div>
+</div>

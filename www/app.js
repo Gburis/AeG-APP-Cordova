@@ -1,0 +1,10 @@
+(function(){
+  angular.module('initApp',[
+    'home',
+    'routes',
+    'ngFileUpload',
+    'ng-file-model',
+    'ui.mask',
+    'ui.utils.masks'
+  ]);
+})();

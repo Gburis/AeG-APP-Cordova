@@ -1,0 +1,61 @@
+<div>
+  <load-progress ng-show="loadProgess"></load-progress>
+  <div menu></div>
+
+  <div class="fixed-action-btn">
+    <a ng-click="openModal()" class="btn-floating btn-large red">
+        <i class="large material-icons">add</i>
+    </a>
+  </div>
+
+  <!-- Modal adicionar produto -->
+  <div id="modal2" class="modal modal-fixed-footer fullscreen">
+    <div class="modal-content">
+      <h5 class="corsiva title-modal">Adicionando produto a "{{ nomeTabeAtual }}"</h5>
+      <form id="produtos" class="col s12" name="form">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">edit</i>
+            <input id="nome_prd" ng-model="newProduto.nome" type="text" required>
+            <label for="nome_prd">Nome</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">description</i>
+            <input id="desc_prd" ng-model="newProduto.desc" type="text" required>
+            <label for="desc_prd">Descrição</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">link</i>
+            <input id="link_prd" ng-model="newProduto.link" type="text" required>
+            <label for="link_prd">Link</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">money</i>
+            <input id="valor_prd" ng-model="newProduto.valor" type="text" ui-money-mask="2" inputmode="numeric" required>
+            <label for="valor_prd">Valor</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="file-field input-field">
+            <div class="btn red">
+              <span><i class="large material-icons">add_a_photo</i></span>
+              <input type="file" ng-file-model="fileImg" required>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a ng-click="salvarProduto(form)" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
+    </div>
+  </div>
+</div>
