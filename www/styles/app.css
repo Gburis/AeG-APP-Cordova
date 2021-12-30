@@ -16,7 +16,7 @@ body{
     background-color: rgba(238,110,115,0.3);
 }
 .load-progess > div{
-    z-index: 99;
+    z-index: 998;
 }
 
 .load-progess > div > img{
@@ -112,4 +112,28 @@ body{
 }
 .input-field .prefix.active {
     color: #ee6e73 !important;
+}
+
+.color-mark{
+    color: #ee6e73 !important;
+    right: 0;
+    font-size: 30px;
+    border: 1px solid;
+    z-index: 1;
+    position: absolute;
+}
+
+.footer-comprado{
+    position: fixed;
+    width: 98%;
+    right: 1%;
+    bottom: 1%;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 997;
+    border: 1px solid #ee6e73;
+}
+
+.bolder{
+    font-weight: bolder!important;
 }

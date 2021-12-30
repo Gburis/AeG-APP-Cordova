@@ -2,9 +2,9 @@
   <load-progress ng-show="loadProgess"></load-progress>
   <div menu></div>
 
-  <div class="fixed-action-btn">
+  <div class="fixed-action-btn" ng-if="tabAtual.flg_add_item > 0">
     <a ng-click="openModal('modal-produto')" class="btn-floating btn-large red">
-        <i class="large material-icons">add</i>
+      <i class="large material-icons">add</i>
     </a>
   </div>
 
@@ -69,6 +69,13 @@
           <span class="title">Mover produto</span>
           <p>"{{ prd_opt.nome }}"</p>
         </li> -->
+        <li class="collection-item avatar" ng-click="changeCompra(prd_opt)">
+          <i class="material-icons circle red"  ng-if="prd_opt.comprado == 0">bookmark</i>
+          <i class="material-icons circle red"  ng-if="prd_opt.comprado > 0">bookmark_border</i>
+          <span class="title" ng-if="prd_opt.comprado == 0">Marcar como comprado</span>
+          <span class="title" ng-if="prd_opt.comprado > 0">Desmarcar compra</span>
+          <p>"{{ prd_opt.nome }}"</p>
+        </li>
         <li class="collection-item avatar" ng-click="openModal('modal-excluir-produto')">
           <i class="material-icons circle red">delete</i>
           <span class="title">Excluir</span>

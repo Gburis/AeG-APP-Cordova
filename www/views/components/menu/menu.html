@@ -10,15 +10,16 @@
     <div class="row">
       <ul class="tabs col s12">
         <li class="tab col s4" ng-repeat="tab in tabs">
-          <a ng-click="changeTab(tab._id, tab.name)">{{tab.name}}</a>
+          <a class="tab-atual" ng-click="changeTab(tab)" ng-class="{'bolder': tabAtual._id == tab._id }">{{tab.name}}</a>
         </li>
       </ul>
     </div>
     <div id="tabs-body">
-      <div class="row" ng-if="produtos.length > 0" ng-repeat="produto in produtos">
+      <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item > 0" ng-repeat="produto in produtos">
         <div class="col s10 offset-s1">
           <div class="card">
             <div class="card-image" ng-touch-hold="prdOptions(produto)">
+              <i class="material-icons color-mark"  ng-if="produto.comprado > 0">bookmark</i>
               <img class="activator" src="{{buket}}{{produto.img}}">
             </div>
             <div class="card-content">
@@ -33,6 +34,31 @@
             </div>
           </div>
         </div>		
+      </div>
+
+      <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item == 0">
+        <table class="striped centered col s10 offset-s1">
+          <thead>
+            <tr>
+              <th>NOME</th>
+              <th>VALOR</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr ng-repeat="produto in produtos" ng-touch-hold="prdOptions(produto)">
+              <td>{{ produto.nome }} </td>
+              <td>{{produto.valor | currency:"R$":2 }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="footer-comprado">
+          <div class="row">
+            <div class="col s6 text-center"> <b>Valor a gastar</b> <br> {{ vlr.comprar | currency:"R$":2 }}</div>
+            <div class="col s6 text-center"><b>Valor gasto</b> <br> {{ vlr.comprados | currency:"R$":2 }}</div>
+          </div>
+        </div>
       </div>
       <div class="row corsiva sem-produto" ng-if="produtos.length == 0">
         Nenhum produto encontrado

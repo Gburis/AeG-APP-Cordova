@@ -10,5 +10,6 @@ node_modules/
 /plugins/
 /platforms/
 
-./www/config.js
+#config
+www/config.js
 

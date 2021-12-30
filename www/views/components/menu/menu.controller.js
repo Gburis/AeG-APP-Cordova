@@ -26,17 +26,21 @@
 
           $scope.tabs = tabs;
           //buscar produtos da primeira taba do menu
-          _changeTab($scope.tabs[0]._id, $scope.tabs[0].name);
+          _changeTab($scope.tabs[0]);
         }
 
-        function _changeTab(id, nome){
+        function _changeTab(tab){
           $scope.loadProgess = true;
-          service.getProdutos(id)
+          let comprado = true;
+
+          if(tab.flg_add_item > 0) comprado = false;
+
+          service.getProdutos(tab._id, comprado)
             .then(function(result){
               result = result.data;
               $scope.produtos = result.data;
-              $scope.tabAtual = id;
-              $scope.nomeTabeAtual = nome;
+              $scope.tabAtual = tab;
+              $scope.vlr = result.values;
               $scope.loadProgess = false;
             })
             .catch(function(err){
@@ -47,7 +51,7 @@
         }
 
         $scope.$on('carregarProntudos', function(evt, agrs){
-          if(agrs.id) _changeTab(agrs.id, agrs.nome);
+          if(agrs.tab) _changeTab(agrs.tab);
         })
 
         $scope.prdOptions = function(prd){
