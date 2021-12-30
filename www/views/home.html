@@ -3,13 +3,13 @@
   <div menu></div>
 
   <div class="fixed-action-btn">
-    <a ng-click="openModal()" class="btn-floating btn-large red">
+    <a ng-click="openModal('modal-produto')" class="btn-floating btn-large red">
         <i class="large material-icons">add</i>
     </a>
   </div>
 
   <!-- Modal adicionar produto -->
-  <div id="modal2" class="modal modal-fixed-footer fullscreen">
+  <div id="modal-produto" class="modal modal-fixed-footer fullscreen">
     <div class="modal-content">
       <h5 class="corsiva title-modal">Adicionando produto a "{{ nomeTabeAtual }}"</h5>
       <form id="produtos" class="col s12" name="form">
@@ -56,6 +56,44 @@
     </div>
     <div class="modal-footer">
       <a ng-click="salvarProduto(form)" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
+    </div>
+  </div>
+
+  <!-- MODAL OPTIONS -->
+  <div id="modal-option-produto" class="modal">
+    <div class="modal-content">
+      <h5 class="corsiva title-modal">{{ prd_opt.nome }}</h5>
+      <ul class="collection">
+        <!-- <li class="collection-item avatar">
+          <i class="material-icons circle yellow">content_paste</i>
+          <span class="title">Mover produto</span>
+          <p>"{{ prd_opt.nome }}"</p>
+        </li> -->
+        <li class="collection-item avatar" ng-click="openModal('modal-excluir-produto')">
+          <i class="material-icons circle red">delete</i>
+          <span class="title">Excluir</span>
+          <p>"{{ prd_opt.nome }}"</p>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat">Fechar</a>
+    </div>
+  </div>
+
+  <!-- MODAL EXCLUSÃO -->
+  <div id="modal-excluir-produto" class="modal">
+    <div class="modal-content text-center">
+      <h5 class="corsiva title-modal"> Deseja excluir esse produto? <br> "{{ prd_opt.nome }}"</h5>
+      <p>
+        <a ng-click="excluirProduto(prd_opt._id)" class="modal-close waves-effect waves-light btn red">
+          <i class="material-icons right">delete</i>
+          button
+        </a>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
     </div>
   </div>
 </div>

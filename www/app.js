@@ -4,6 +4,7 @@
     'routes',
     'ngFileUpload',
     'ng-file-model',
+    'ng-touch-hold',
     'ui.mask',
     'ui.utils.masks'
   ]);

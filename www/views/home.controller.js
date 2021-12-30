@@ -4,7 +4,7 @@
   ])
     .controller('homeController', function($scope, Upload, serviceFactory){
       const service = serviceFactory
-      const elems = document.querySelector('.modal');
+      const elems = document.querySelectorAll('.modal');
       const modalInstance = M.Modal.init(elems);
       //scope
       $scope.tabs = [];
@@ -15,9 +15,10 @@
       $scope.warningMsg = function(msg){M.toast({html: msg, classes: 'orange rounded center'});}
       $scope.errorMsg = function(msg){M.toast({html: msg, classes: 'red rounded center'});}
 
-      $scope.openModal = function(){
+      $scope.openModal = function(modal){
         $scope.newProduto = {};
-        modalInstance.open();
+        var isntatual = modalInstance.find(function(inst){return inst.id == modal;})
+        isntatual.open();
       }
 
       $scope.salvarProduto = function(form){
@@ -61,6 +62,32 @@
             $scope.loadProgess = false;
             $scope.errorMsg('Erro ao adicionar nova imagem');
           });
+      }
+
+      $scope.excluirProduto = function(id){
+        $scope.loadProgess = true;
+        service.delteProduto(id)
+          .then(function(result){
+            result = result.data
+            if(result.status){
+              $scope.loadProgess = false;
+              _closeAllModal();
+              $scope.$emit('carregarProntudos', {id: $scope.tabAtual, nome: $scope.nomeTabeAtual});
+              $scope.successMsg('Produto deletado');
+            }else{
+              $scope.loadProgess = false;
+              $scope.errorMsg('Erro ao deletar produto');
+            }
+          })
+          .catch(function(err){
+            console.log(err)
+            $scope.loadProgess = false;
+            $scope.errorMsg('Erro ao deletar produto');
+          });
+      }
+
+      function _closeAllModal(){
+        modalInstance.forEach(function(instance){instance.close();});
       }
     });
 })();

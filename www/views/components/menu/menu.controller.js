@@ -49,5 +49,10 @@
         $scope.$on('carregarProntudos', function(evt, agrs){
           if(agrs.id) _changeTab(agrs.id, agrs.nome);
         })
+
+        $scope.prdOptions = function(prd){
+          $scope.prd_opt = angular.copy(prd);
+          $scope.openModal('modal-option-produto');
+        }
     });
 })();

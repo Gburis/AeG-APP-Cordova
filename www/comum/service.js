@@ -12,6 +12,9 @@
       },
       saveProduto: function(produtos){
         return $http.post(`${API}/api/cadastrar-produtos`, produtos);
+      },
+      delteProduto: function(id){
+        return $http.post(`${API}/api/deletar-produto`, {"prd_id":id});
       }
     }
   });

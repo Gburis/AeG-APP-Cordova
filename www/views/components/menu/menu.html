@@ -18,7 +18,7 @@
       <div class="row" ng-if="produtos.length > 0" ng-repeat="produto in produtos">
         <div class="col s10 offset-s1">
           <div class="card">
-            <div class="card-image">
+            <div class="card-image" ng-touch-hold="prdOptions(produto)">
               <img class="activator" src="{{buket}}{{produto.img}}">
             </div>
             <div class="card-content">
