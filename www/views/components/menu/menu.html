@@ -2,21 +2,24 @@
   <div class="row">
     <nav class="logo-casal">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo ">
+        <a class="brand-logo ">
           <img class="circle" src="img/logo.jpeg"/>
         </a>
       </div>
+      <a ng-click="logout()" class="logout cursor">
+        <i class="material-icons">power_settings_new</i>
+      </a>
     </nav>
     <div class="row">
       <ul class="tabs col s12">
         <li class="tab col s4" ng-repeat="tab in tabs">
-          <a class="tab-atual" ng-click="changeTab(tab)" ng-class="{'bolder': tabAtual._id == tab._id }">{{tab.name}}</a>
+          <a class="tab-atual cursor" ng-click="changeTab(tab)" ng-class="{'bolder': tabAtual._id == tab._id }">{{tab.name}}</a>
         </li>
       </ul>
     </div>
     <div id="tabs-body">
-      <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item > 0" ng-repeat="produto in produtos">
-        <div class="col s10 offset-s1">
+      <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item > 0">
+        <div class="col s10 offset-s1 m3" ng-repeat="produto in produtos">
           <div class="card">
             <div class="card-image" ng-touch-hold="prdOptions(produto)">
               <i class="material-icons color-mark"  ng-if="produto.comprado > 0">bookmark</i>
@@ -24,7 +27,10 @@
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4">{{produto.nome}} <i class="material-icons right">arrow_drop_up</i></span>
-              <p><a target="_blank" href="{{produto.link}}"> <i class="material-icons right">insert_link</i> Site para compra</a></p>
+              <p>
+                <a class="cursor" ng-click="prdOptions(produto)"><i class="material-icons right conf-desk">settings</i></a>
+                <a target="_blank" href="{{produto.link}}"> <i class="material-icons right">insert_link</i> Site para compra</a>
+              </p>
             </div>
             <div class="card-reveal">
               <span class="card-title grey-text text-darken-4">{{produto.nome}} <i class="material-icons right">arrow_drop_down</i></span>

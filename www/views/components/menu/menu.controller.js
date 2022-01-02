@@ -1,7 +1,7 @@
 (function(){
  'use strict';
-  angular.module('homeComponents')
-    .controller('menuController', function($scope, serviceFactory, BUKET){
+  angular.module('appComponents')
+    .controller('menuController', function($scope, serviceFactory, BUKET, $rootScope){
       const service = serviceFactory;
       $scope.changeTab = _changeTab
       $scope.loadProgess = true;
@@ -38,10 +38,15 @@
           service.getProdutos(tab._id, comprado)
             .then(function(result){
               result = result.data;
-              $scope.produtos = result.data;
-              $scope.tabAtual = tab;
-              $scope.vlr = result.values;
-              $scope.loadProgess = false;
+              if(result.success){
+                $scope.produtos = result.data;
+                $scope.tabAtual = tab;
+                $scope.vlr = result.values;
+                $scope.loadProgess = false;
+              }else{
+                $scope.loadProgess = false;
+                $scope.errorMsg('Erro ao carregar produtos !');
+              }
             })
             .catch(function(err){
               console.log(err);
@@ -57,6 +62,10 @@
         $scope.prdOptions = function(prd){
           $scope.prd_opt = angular.copy(prd);
           $scope.openModal('modal-option-produto');
+        }
+
+        $scope.logout = function(){
+          $rootScope.$broadcast('$logout');
         }
     });
 })();

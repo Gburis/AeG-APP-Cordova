@@ -4,6 +4,9 @@
   ])
   .factory('serviceFactory', function($http, API){
     return{
+      login: function(user){
+        return $http.post(`${API}/api/login`, user);
+      },
       listarTabs: function(){
         return $http.get(`${API}/api/listar-tabs`);
       },
@@ -12,6 +15,9 @@
       },
       saveProduto: function(produtos){
         return $http.post(`${API}/api/cadastrar-produtos`, produtos);
+      },
+      editarProduto: function(produto){
+        return $http.post(`${API}/api/editar-produtos`, produto);
       },
       delteProduto: function(id){
         return $http.post(`${API}/api/deletar-produto`, {"prd_id":id});

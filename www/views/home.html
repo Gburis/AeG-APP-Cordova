@@ -11,7 +11,7 @@
   <!-- Modal adicionar produto -->
   <div id="modal-produto" class="modal modal-fixed-footer fullscreen">
     <div class="modal-content">
-      <h5 class="corsiva title-modal">Adicionando produto a "{{ nomeTabeAtual }}"</h5>
+      <h5 class="corsiva title-modal">Adicionando produto a "{{ tabAtual.name }}"</h5>
       <form id="produtos" class="col s12" name="form">
         <div class="row">
           <div class="input-field col s12">
@@ -55,6 +55,7 @@
       </form>
     </div>
     <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat float-left">Cancelar</a>
       <a ng-click="salvarProduto(form)" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
     </div>
   </div>
@@ -64,19 +65,19 @@
     <div class="modal-content">
       <h5 class="corsiva title-modal">{{ prd_opt.nome }}</h5>
       <ul class="collection">
-        <!-- <li class="collection-item avatar">
-          <i class="material-icons circle yellow">content_paste</i>
-          <span class="title">Mover produto</span>
-          <p>"{{ prd_opt.nome }}"</p>
-        </li> -->
-        <li class="collection-item avatar" ng-click="changeCompra(prd_opt)">
+        <li class="collection-item avatar cursor" ng-click="changeCompra(prd_opt)">
           <i class="material-icons circle red"  ng-if="prd_opt.comprado == 0">bookmark</i>
           <i class="material-icons circle red"  ng-if="prd_opt.comprado > 0">bookmark_border</i>
           <span class="title" ng-if="prd_opt.comprado == 0">Marcar como comprado</span>
           <span class="title" ng-if="prd_opt.comprado > 0">Desmarcar compra</span>
           <p>"{{ prd_opt.nome }}"</p>
         </li>
-        <li class="collection-item avatar" ng-click="openModal('modal-excluir-produto')">
+        <li class="collection-item avatar cursor" ng-click="editarProduto(prd_opt)">
+          <i class="material-icons circle red">edit</i>
+          <span class="title">Editar</span>
+          <p>"{{ prd_opt.nome }}"</p>
+        </li>
+        <li class="collection-item avatar cursor" ng-click="openModal('modal-excluir-produto')">
           <i class="material-icons circle red">delete</i>
           <span class="title">Excluir</span>
           <p>"{{ prd_opt.nome }}"</p>
@@ -101,6 +102,55 @@
     </div>
     <div class="modal-footer">
       <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR PRODUTO -->
+  <div id="modal-editar-produto" class="modal modal-fixed-footer fullscreen">
+    <div class="modal-content">
+      <h5 class="corsiva title-modal">Editar produto</h5>
+      <form id="produtos" class="col s12" name="formEdit">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">menu</i>
+            <select ng-model="editPrd.tab">
+              <option ng-repeat="tab in tabs" ng-selected="tab._id == tabAtual._id" value="{{tab._id}}" ng-if="tab.flg_add_item > 0">{{tab.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">edit</i>
+            <input id="edit_nome_prd" ng-model="editPrd.nome" type="text" required>
+            <label class="active" for="edit_nome_prd">Nome</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">description</i>
+            <input id="edit_desc_prd" ng-model="editPrd.descricao" type="text" required>
+            <label class="active" for="edit_desc_prd">Descrição</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">link</i>
+            <input id="edit_link_prd" ng-model="editPrd.link" type="text" required>
+            <label class="active" for="edit_link_prd">Link</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">money</i>
+            <input id="edit_vlr_prd" ng-model="editPrd.valor" type="text" ui-money-mask="2" inputmode="numeric" required>
+            <label class="active" for="edit_vlr_prd">Valor</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat float-left">Cancelar</a>
+      <a ng-click="salvarAlteracaoProduto(formEdit)" class="waves-effect waves-green btn-flat">Salvar</a>
     </div>
   </div>
 </div>

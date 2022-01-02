@@ -1,6 +1,6 @@
 (function(){
   angular.module('home', [
-    'homeComponents'
+    'appComponents'
   ])
     .controller('homeController', function($scope, Upload, serviceFactory){
       const service = serviceFactory
@@ -41,7 +41,7 @@
             service.saveProduto($scope.newProduto)
             .then(function(result){
               result = result.data;
-              if(result.status){
+              if(result.success){
                 $scope.successMsg('Novo produto adicionado a lista atual');
                 $scope.$emit('carregarProntudos', {tab: $scope.tabAtual});
               }
@@ -68,7 +68,7 @@
         service.delteProduto(id)
           .then(function(result){
             result = result.data
-            if(result.status){
+            if(result.success){
               $scope.loadProgess = false;
               _closeAllModal();
               $scope.$emit('carregarProntudos', {tab: $scope.tabAtual});
@@ -93,12 +93,14 @@
         }
         service.marcarCompra(params)
           .then(function(result){
-            if(result.status){
+            result = result.data;
+            if(result.success){
               $scope.loadProgess = false;
               _closeAllModal();
               $scope.$emit('carregarProntudos', {tab: $scope.tabAtual});
               $scope.successMsg(`Produto ${produto.comprado > 0 ? 'Desmarcado' : 'marcado'}`);
             }else{
+              console.log(result)
               $scope.loadProgess = false;
               $scope.errorMsg('Erro ao Marcar/Desmarcar');
             }
@@ -110,8 +112,43 @@
           })
       }
 
-      function _closeAllModal(){
-        modalInstance.forEach(function(instance){instance.close();});
+      $scope.editarProduto = function(prd){
+        const elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+        $scope.editPrd = angular.copy(prd);
+        $scope.editPrd.tab = $scope.tabAtual._id;
+        $scope.openModal('modal-editar-produto');
+      }
+
+      $scope.salvarAlteracaoProduto = function(form){
+        $scope.formEdit.$setSubmitted();
+        if(!form.$valid)  return $scope.warningMsg('Preencha todos os campos !');
+
+        $scope.loadProgess = true;
+        service.editarProduto($scope.editPrd)
+        .then(function(result){
+          result = result.data;
+          if(result.success){
+            _closeAllModal();
+            $scope.successMsg('Produto alterado!');
+            $scope.$emit('carregarProntudos', {tab: $scope.tabAtual});
+          }
+          else{
+            $scope.errorMsg('Erro ao editar produto');
+          }
+          $scope.loadProgess = false;
+        })
+        .catch(function(err){
+          console.log(err);
+          $scope.loadProgess = false;
+          $scope.errorMsg('Erro ao editar produto');
+        });
+      }
+
+      function _closeAllModal(modal = false){
+        modalInstance.forEach(function(instance){
+          if(modal && instance.id == modal || !modal)instance.close();
+        });
       }
     });
 })();

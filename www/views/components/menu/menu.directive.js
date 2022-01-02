@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  angular.module('homeComponents')
+  angular.module('appComponents')
     .directive('menu', menu);
   
   function menu(){

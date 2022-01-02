@@ -1,0 +1,37 @@
+<div>
+  <load-progress ng-show="loadProgess"></load-progress>
+  <div class="login-header">
+    <div class="logo-casal-login">
+      <div class="nav-wrapper">
+        <img class="circle" src="img/logo.jpeg"/>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="login-content col s10 offset-s1 m4 offset-m4">
+      <form id="login" class="col s12 login-content-form" name="form">
+        <div class="row">
+          <div class="input-field col s12 m11">
+            <i class="material-icons prefix">perm_identity</i>
+            <input id="username" ng-model="user.username" type="text" required>
+            <label for="username">Nome do usuario</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m11">
+            <i class="material-icons prefix">lock_outline</i>
+            <input id="password" ng-model="user.password" type="password" required>
+            <label for="password">Senha</label>
+          </div>
+          <div class="col s12 m11">
+            <label>
+              <input type="checkbox" ng-model="saveDadosUser"/>
+              <span>Lembrar senha</span>
+            </label>
+          </div>
+        </div>
+        <a ng-click="login()" class="waves-effect waves-light btn red-gradient">Entrar</a>
+      </form>
+    </div>
+  </div>
+</div>

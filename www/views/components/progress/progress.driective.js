@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    angular.module('homeComponents')
+    angular.module('appComponents')
       .directive('loadProgress', loadprogress);
     
     function loadprogress(){
