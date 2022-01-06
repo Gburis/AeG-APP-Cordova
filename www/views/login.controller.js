@@ -15,11 +15,6 @@
         if(password) $scope.user.password = password;
 
         if(username && password){
-          $timeout(function(){
-            document.getElementById('username').focus();
-            document.getElementById('password').focus();
-          },500);
-
           $scope.saveDadosUser = true;
         }
 

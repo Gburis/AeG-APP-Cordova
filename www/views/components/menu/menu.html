@@ -22,11 +22,12 @@
         <div class="col s10 offset-s1 m3" ng-repeat="produto in produtos">
           <div class="card">
             <div class="card-image" ng-touch-hold="prdOptions(produto)">
+              <i ng-if="produto.qtd > 1" class="material-icons color-qtd">filter_{{ produto.qtd }}</i>
               <i class="material-icons color-mark"  ng-if="produto.comprado > 0">bookmark</i>
               <img class="activator" src="{{buket}}{{produto.img}}">
             </div>
             <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">{{produto.nome}} <i class="material-icons right">arrow_drop_up</i></span>
+              <span class="card-title activator grey-text text-darken-4">{{produto.nome}} {{produto.valor | currency:"R$":2 }}<i class="material-icons right">arrow_drop_up</i></span>
               <p>
                 <a class="cursor" ng-click="prdOptions(produto)"><i class="material-icons right conf-desk">settings</i></a>
                 <a target="_blank" href="{{produto.link}}"> <i class="material-icons right">insert_link</i> Site para compra</a>
@@ -36,7 +37,11 @@
               <span class="card-title grey-text text-darken-4">{{produto.nome}} <i class="material-icons right">arrow_drop_down</i></span>
               <p>{{produto.descricao}}</p>
               <br>
-              <p>Preço {{produto.valor | currency:"R$":2 }}</p>
+              <p>Preço: {{produto.valor | currency:"R$":2 }}</p>
+              <br>
+              <p>Quantidade {{produto.qtd}}</p>
+              <br>
+              <p>Valor total: {{produto.valor * produto.qtd | currency:"R$":2 }}</p>
             </div>
           </div>
         </div>		
@@ -48,13 +53,17 @@
             <tr>
               <th>NOME</th>
               <th>VALOR</th>
+              <th>QTD</th>
+              <th>TOTAL</th>
             </tr>
           </thead>
   
           <tbody>
             <tr ng-repeat="produto in produtos" ng-touch-hold="prdOptions(produto)">
               <td>{{ produto.nome }} </td>
-              <td>{{produto.valor | currency:"R$":2 }}</td>
+              <td>{{ produto.valor | currency:"R$":2 }}</td>
+              <td>{{ produto.qtd }}</td>
+              <td>{{ produto.valor * produto.qtd | currency:"R$":2 }} </td>
             </tr>
           </tbody>
         </table>

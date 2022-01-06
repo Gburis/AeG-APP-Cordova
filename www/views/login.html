@@ -14,14 +14,14 @@
           <div class="input-field col s12 m11">
             <i class="material-icons prefix">perm_identity</i>
             <input id="username" ng-model="user.username" type="text" required>
-            <label for="username">Nome do usuario</label>
+            <label ng-class="{'active': saveDadosUser}" for="username">Nome do usuario</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 m11">
             <i class="material-icons prefix">lock_outline</i>
             <input id="password" ng-model="user.password" type="password" required>
-            <label for="password">Senha</label>
+            <label ng-class="{'active': saveDadosUser}" for="password">Senha</label>
           </div>
           <div class="col s12 m11">
             <label>

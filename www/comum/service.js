@@ -7,6 +7,9 @@
       login: function(user){
         return $http.post(`${API}/api/login`, user);
       },
+      auth: function(){
+        return $http.get(`${API}/api/check-auth`);
+      },
       listarTabs: function(){
         return $http.get(`${API}/api/listar-tabs`);
       },

@@ -15,7 +15,11 @@
       $scope.errorMsg = function(msg){M.toast({html: msg, classes: 'red rounded center'});}
 
       $scope.openModal = function(modal){
+        const selects = document.querySelectorAll('select');
+        M.FormSelect.init(selects);
+        
         $scope.newProduto = {};
+        $scope.newProduto.qtd = 1;
         var isntatual = modalInstance.find(function(inst){return inst.id == modal;})
         isntatual.open();
       }
@@ -113,10 +117,10 @@
       }
 
       $scope.editarProduto = function(prd){
-        const elems = document.querySelectorAll('select');
-        M.FormSelect.init(elems);
         $scope.editPrd = angular.copy(prd);
         $scope.editPrd.tab = $scope.tabAtual._id;
+        $scope.editPrd.qtd = Number($scope.editPrd.qtd); 
+        $scope.calcTotal(false);
         $scope.openModal('modal-editar-produto');
       }
 
@@ -143,6 +147,33 @@
           $scope.loadProgess = false;
           $scope.errorMsg('Erro ao editar produto');
         });
+      }
+
+      $scope.quantidade = function(newPrd, add){
+        if(newPrd){
+          $scope.newProduto.qtd = add 
+            ? $scope.newProduto.qtd >= 10 
+              ? 10 : $scope.newProduto.qtd + 1 
+            : $scope.newProduto.qtd <= 1 
+              ? 1 : $scope.newProduto.qtd - 1;
+          
+          $scope.newProduto.total = $scope.newProduto.valor * $scope.newProduto.qtd;
+        }else{
+          $scope.editPrd.qtd = add 
+            ? $scope.editPrd.qtd >= 10 
+              ? 10 : $scope.editPrd.qtd + 1 
+            : $scope.editPrd.qtd <= 1 
+              ? 1 : $scope.editPrd.qtd - 1;
+          
+          $scope.editPrd.total = $scope.editPrd.valor * $scope.editPrd.qtd;
+        }
+      }
+
+      $scope.calcTotal = function(newPrd){
+        if(newPrd) 
+          $scope.newProduto.total = $scope.newProduto.valor * $scope.newProduto.qtd;
+        else
+          $scope.editPrd.total = $scope.editPrd.valor * $scope.editPrd.qtd;
       }
 
       function _closeAllModal(modal = false){

@@ -37,8 +37,24 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">money</i>
-            <input id="valor_prd" ng-model="newProduto.valor" type="text" ui-money-mask="2" inputmode="numeric" required>
+            <input id="valor_prd" ng-model="newProduto.valor" ng-blur="calcTotal(true)" type="text" ui-money-mask="2" inputmode="numeric" required>
             <label for="valor_prd">Valor</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">attach_money</i>
+            <input id="vlr_total" ng-model="newProduto.total" type="text" ui-money-mask="2" inputmode="numeric" required disabled>
+            <label class="active" for="vlr_total">Total</label>
+          </div>
+          <div class="input-field col s6 input-qtd">
+            <div class="col s4 qtd-icon" ng-click="quantidade(true, false)">
+              <i class="material-icons">remove_circle_outline</i>
+            </div>
+            <div class="col s4 vlr-qtd text-center">
+              {{ newProduto.qtd }}
+            </div>
+            <div class="col s4 qtd-icon" ng-click="quantidade(true, true)">
+              <i class="material-icons">add_circle_outline</i>
+            </div>
           </div>
         </div>
         <div class="row">
@@ -66,8 +82,8 @@
       <h5 class="corsiva title-modal">{{ prd_opt.nome }}</h5>
       <ul class="collection">
         <li class="collection-item avatar cursor" ng-click="changeCompra(prd_opt)">
-          <i class="material-icons circle red"  ng-if="prd_opt.comprado == 0">bookmark</i>
-          <i class="material-icons circle red"  ng-if="prd_opt.comprado > 0">bookmark_border</i>
+          <i class="material-icons circle red"  ng-if="prd_opt.comprado == 0">bookmark_add</i>
+          <i class="material-icons circle red"  ng-if="prd_opt.comprado > 0">bookmark_remove</i>
           <span class="title" ng-if="prd_opt.comprado == 0">Marcar como comprado</span>
           <span class="title" ng-if="prd_opt.comprado > 0">Desmarcar compra</span>
           <p>"{{ prd_opt.nome }}"</p>
@@ -142,8 +158,24 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">money</i>
-            <input id="edit_vlr_prd" ng-model="editPrd.valor" type="text" ui-money-mask="2" inputmode="numeric" required>
+            <input id="edit_vlr_prd" ng-model="editPrd.valor" ng-blur="calcTotal(false)" type="text" ui-money-mask="2" inputmode="numeric" required>
             <label class="active" for="edit_vlr_prd">Valor</label>
+          </div>
+          <div class="input-field col s6">
+            <i class="material-icons prefix">attach_money</i>
+            <input id="edit_vlr_total" ng-model="editPrd.total" type="text" ui-money-mask="2" inputmode="numeric" required disabled>
+            <label class="active" for="edit_vlr_total">Total</label>
+          </div>
+          <div class="input-field col s6 input-qtd">
+            <div class="col s4 qtd-icon" ng-click="quantidade(false, false)">
+              <i class="material-icons">remove_circle_outline</i>
+            </div>
+            <div class="col s4 vlr-qtd text-center">
+              {{ editPrd.qtd }}
+            </div>
+            <div class="col s4 qtd-icon" ng-click="quantidade(false, true)">
+              <i class="material-icons">add_circle_outline</i>
+            </div>
           </div>
         </div>
       </form>
