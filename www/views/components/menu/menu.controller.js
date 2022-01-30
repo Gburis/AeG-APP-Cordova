@@ -1,7 +1,7 @@
 (function(){
  'use strict';
   angular.module('appComponents')
-    .controller('menuController', function($scope, serviceFactory, BUKET, $rootScope){
+    .controller('menuController', function($scope, serviceFactory, BUKET, $rootScope, $sce){
       const service = serviceFactory;
       $scope.changeTab = _changeTab
       $scope.loadProgess = true;
@@ -66,6 +66,10 @@
 
         $scope.logout = function(){
           $rootScope.$broadcast('$logout');
+        }
+
+        $scope.html = function(element){
+          return $sce.trustAsHtml(element);
         }
     });
 })();

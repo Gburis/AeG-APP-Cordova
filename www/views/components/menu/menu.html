@@ -13,7 +13,7 @@
     <div class="row">
       <ul class="tabs col s12">
         <li class="tab col s4" ng-repeat="tab in tabs">
-          <a class="tab-atual cursor" ng-click="changeTab(tab)" ng-class="{'bolder': tabAtual._id == tab._id }">{{tab.name}}</a>
+          <a class="tab-atual cursor menu-tab" ng-click="changeTab(tab)" ng-class="{'bolder': tabAtual._id == tab._id }" ng-bind-html="html(!tab.icon ? tab.name : tab.icon)"></a>
         </li>
       </ul>
     </div>
@@ -48,25 +48,27 @@
       </div>
 
       <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item == 0">
-        <table class="striped centered col s10 offset-s1">
-          <thead>
-            <tr>
-              <th>NOME</th>
-              <th>VALOR</th>
-              <th>QTD</th>
-              <th>TOTAL</th>
-            </tr>
-          </thead>
-  
-          <tbody>
-            <tr ng-repeat="produto in produtos" ng-touch-hold="prdOptions(produto)">
-              <td>{{ produto.nome }} </td>
-              <td>{{ produto.valor | currency:"R$":2 }}</td>
-              <td>{{ produto.qtd }}</td>
-              <td>{{ produto.valor * produto.qtd | currency:"R$":2 }} </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-wrapper">
+          <table class="striped centered col s10 offset-s1 tb-comprado">
+            <thead>
+              <tr>
+                <th>NOME</th>
+                <th>VALOR</th>
+                <th>QTD</th>
+                <th>TOTAL</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              <tr ng-repeat="produto in produtos" ng-touch-hold="prdOptions(produto)">
+                <td>{{ produto.nome }} </td>
+                <td>{{ produto.valor | currency:"R$":2 }}</td>
+                <td>{{ produto.qtd }}</td>
+                <td>{{ produto.valor * produto.qtd | currency:"R$":2 }} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div class="footer-comprado">
           <div class="row">

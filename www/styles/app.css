@@ -265,6 +265,15 @@ table.striped>tbody>tr:nth-child(odd) {
     float: left;
 }
 
+.menu-tab > i {
+    padding: 9px 0px 5px 0px!important;
+}
+
+.table-wrapper {
+    max-height: 55vh;
+    overflow-y: auto;
+}
+
 @media only screen and (min-width: 1000px){
     .logo-casal-login img{
         width: 180px;
