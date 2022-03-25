@@ -35,7 +35,22 @@
           if (token){
             $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
             $timeout(function(){
-              $state.go('home');
+              const tokenDevice = $window.localStorage.getItem('tokenDevice');
+              const id = $window.localStorage.getItem('id');
+
+              if(tokenDevice){
+                serviceFactory.device({
+                  id: id,
+                  token: tokenDevice,
+                  date: new Date()
+                }).then(function(){
+                  $state.go('home');
+                }).catch(function(){
+                  $state.go('home');
+                });
+              }else{
+                $state.go('home');
+              }
             },200);
           }
         });
@@ -60,5 +75,9 @@
           $state.go('login');
         }
       },100);
+
+      function watchNotification(){
+        console.log('teste')
+      }
   }]);
 })();

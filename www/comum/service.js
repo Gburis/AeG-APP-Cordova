@@ -27,6 +27,12 @@
       },
       marcarCompra: function(params){
         return $http.post(`${API}/api/marcar-compra`, params);
+      },
+      device: function(params){
+        return $http.post(`${API}/api/device`, params);
+      },
+      notification: function(params){
+        return $http.post(`${API}/api/cloud-messaging`, params);
       }
     }
   });

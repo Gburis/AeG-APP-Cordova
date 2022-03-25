@@ -2,7 +2,7 @@
   angular.module('home', [
     'appComponents'
   ])
-    .controller('homeController', function($scope, Upload, serviceFactory){
+    .controller('homeController', function($scope, Upload, serviceFactory, $window){
       const service = serviceFactory
       const elems = document.querySelectorAll('.modal');
       const modalInstance = M.Modal.init(elems);
@@ -48,6 +48,15 @@
               if(result.success){
                 $scope.successMsg('Novo produto adicionado a lista atual');
                 $scope.$emit('carregarProntudos', {tab: $scope.tabAtual});
+
+                const id = $window.localStorage.getItem('id');
+                const nome = $window.localStorage.getItem('nome');
+                const notification = {
+                  id: id,
+                  nome: nome,
+                  produto: $scope.newProduto.nome
+                }
+                service.notification(notification);
               }
               else{
                 $scope.errorMsg('Erro ao salvar novo produto');
