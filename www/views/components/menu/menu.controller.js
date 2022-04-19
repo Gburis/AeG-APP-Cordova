@@ -30,6 +30,17 @@
         }
 
         function _changeTab(tab){
+          switch (tab.cod) {
+            case 'PRD':
+              _listProdutos(tab);
+            break;
+            case 'CVD':
+              _listConvidados(tab);
+            break;
+          }
+        }
+
+        function _listProdutos(tab){
           $scope.loadProgess = true;
           let comprado = true;
 
@@ -49,9 +60,30 @@
               }
             })
             .catch(function(err){
-              console.log(err);
               $scope.loadProgess = false;
               $scope.errorMsg('Erro ao carregar produtos !');
+            });
+        }
+
+        function _listConvidados(tab){
+          $scope.loadProgess = true;
+          service.listarConvidados()
+            .then(function(result){
+              console.log(result)
+              result = result.data;
+              if(result.success){
+                $scope.convidados = result.data;
+                $scope.envites = $scope.convidados.filter(function(c){return c.envite == 1});
+                $scope.tabAtual = tab;
+                $scope.loadProgess = false;
+              }else{
+                $scope.loadProgess = false;
+                $scope.errorMsg('Erro ao listar convidados !');
+              }
+            })
+            .catch(function(err){
+              $scope.loadProgess = false;
+              $scope.errorMsg('Erro ao listar convidados !');
             });
         }
 

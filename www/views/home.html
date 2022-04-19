@@ -3,7 +3,7 @@
   <div menu></div>
 
   <div class="fixed-action-btn" ng-if="tabAtual.flg_add_item > 0">
-    <a ng-click="openModal('modal-produto')" class="btn-floating btn-large red">
+    <a ng-click="openModal(tabAtual._id == 6 ? 'modal-convidado' : 'modal-produto')" class="btn-floating btn-large red">
       <i class="large material-icons">add</i>
     </a>
   </div>
@@ -183,6 +183,36 @@
     <div class="modal-footer">
       <a class="modal-close waves-effect waves-green btn-flat float-left">Cancelar</a>
       <a ng-click="salvarAlteracaoProduto(formEdit)" class="waves-effect waves-green btn-flat">Salvar</a>
+    </div>
+  </div>
+
+  <!-- Modal convidados -->
+  <div id="modal-convidado" class="modal modal-fixed-footer fullscreen">
+    <div class="modal-content">
+      <h5 class="corsiva title-modal">Adicionando Convidado</h5>
+      <form id="convidado" class="col s12" name="form">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">face</i>
+            <input id="nome_cv" ng-model="convidado.nome" type="text" required>
+            <label for="nome_cv">Nome</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="fa-solid fa-person-half-dress prefix"></i>
+            <select ng-model="convidado.por">
+              <option value="noivo">NOIVO</option>
+              <option value="noiva">NOIVA</option>
+            </select>
+            <label for="nome_prd">Convidado pelo(a)</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat float-left">Cancelar</a>
+      <a ng-click="salvarConvidado(form)" class="modal-close waves-effect waves-green btn-flat">Salvar</a>
     </div>
   </div>
 </div>

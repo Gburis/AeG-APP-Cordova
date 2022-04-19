@@ -12,13 +12,26 @@
     </nav>
     <div class="row">
       <ul class="tabs col s12">
-        <li class="tab col s4" ng-repeat="tab in tabs">
-          <a class="tab-atual cursor menu-tab" ng-click="changeTab(tab)" ng-class="{'bolder': tabAtual._id == tab._id }" ng-bind-html="html(!tab.icon ? tab.name : tab.icon)"></a>
+        <li class="tab col s2" ng-repeat="tab in tabs" ng-class="{'s3': tab.ordem == 3, 's2': tab.ordem != 3}">
+          <div ng-if="tab.ordem == 3" class="adend"></div>
+          <a class="tab-atual cursor menu-tab" ng-click="changeTab(tab)" ng-class="{'tab-selected': tabAtual._id == tab._id }" ng-bind-html="html(!tab.icon ? tab.name : tab.icon)"></a>
         </li>
       </ul>
     </div>
     <div id="tabs-body">
-      <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item > 0">
+      <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item > 0 && tabAtual.cod == 'PRD'">
+        <div class="col s12" ng-if="tabAtual.calculo == 0">
+          <div class="col s6 present-list-par">
+            <a target="_blank" href="http://finalfeliz.de/gabriel-olimpio-amanda-bispo">
+              <img src="img/magalu.png"/>
+            </a>
+          </div>
+          <div class="col s6 present-list-par">
+            <a target="_blank" href="https://listas.pontofrio.com.br/gabriel-amanda-presentes-2022">
+              <img src="img/ponto.webp"/>
+            </a>
+          </div>
+        </div>
         <div class="col s10 offset-s1 m3" ng-repeat="produto in produtos">
           <div class="card">
             <div class="card-image" ng-touch-hold="prdOptions(produto)">
@@ -47,7 +60,7 @@
         </div>		
       </div>
 
-      <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item == 0">
+      <div class="row" ng-if="produtos.length > 0 && tabAtual.flg_add_item == 0 && tabAtual.cod == 'PRD'">
         <div class="table-wrapper">
           <table class="striped centered col s10 offset-s1 tb-comprado">
             <thead>
@@ -77,8 +90,41 @@
           </div>
         </div>
       </div>
-      <div class="row corsiva sem-produto" ng-if="produtos.length == 0">
-        Nenhum produto encontrado
+
+      <div class="row" ng-if="convidados.length > 0 && tabAtual.cod == 'CVD'">
+        <div class="table-wrapper">
+          <table class="striped centered col s10 offset-s1 tb-comprado">
+            <thead>
+              <tr>
+                <th>NOME</th>
+                <th>LISTA</th>
+                <th>ENVITE</th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              <tr ng-repeat="convidado in convidados">
+                <td>{{ convidado.nome }} </td>
+                <td>{{ convidado.por }}</td>
+                <td> 
+                  <i ng-if="convidado.envite == 0" ng-click="conviteCheck(convidado, 1)" class="fa-regular fa-circle-xmark" ng-class="{'envite-red': convidado.envite == 0}"></i>
+                  <i ng-if="convidado.envite == 1" ng-click="conviteCheck(convidado, 0)" class="fa-regular fa-circle-check" ng-class="{'envite-green': convidado.envite == 1}"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footer-comprado">
+          <div class="row">
+            <div class="col s6 text-center"> <b>Total</b> <br> {{ convidados.length }}</div>
+            <div class="col s6 text-center"><b>Convidados</b> <br> {{ envites.length }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row corsiva sem-produto" ng-if="produtos.length == 0 && tabAtual.cod == 'PRD' || convidados.length == 0 && tabAtual.cod == 'CVD'">
+        Nenhum Item para essa lista!
       </div>	
     </div>
   </div>

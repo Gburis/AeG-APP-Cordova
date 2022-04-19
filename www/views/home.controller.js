@@ -9,6 +9,7 @@
       //scope
       $scope.tabs = [];
       $scope.newProduto = {};
+      $scope.convidado = {};
       $scope.tabAtual = {};
       $scope.successMsg = function(msg){M.toast({html: msg, classes: 'green rounded center'});}
       $scope.warningMsg = function(msg){M.toast({html: msg, classes: 'orange rounded center'});}
@@ -36,7 +37,7 @@
             $scope.newProduto.tab_id = $scope.tabAtual._id;
             $scope.newProduto.type_img = $scope.fileImg.type;
 
-            if(!['image/png', 'image/jpeg', 'image/gif'].includes($scope.fileImg.type)) {
+            if(!['image/png', 'image/jpeg', 'image/gif', 'image/webp'].includes($scope.fileImg.type)) {
               $scope.loadProgess = false;
               return $scope.warningMsg('Formato de arquivo não permitido!');
             }
@@ -73,6 +74,68 @@
             console.log(err)
             $scope.loadProgess = false;
             $scope.errorMsg('Erro ao adicionar nova imagem');
+          });
+      }
+
+      $scope.salvarConvidado = function(form){
+        form.$setSubmitted();
+        if(!form.$valid)  return $scope.warningMsg('Preencha todos os campos !');
+        $scope.loadProgess = true;
+        service.cadastrarConvidados($scope.convidado)
+          .then(function(result){
+            result = result.data;
+            if(result.success){
+              $scope.successMsg('Novo Convidado adicionado a lista atual');
+              $scope.$emit('carregarProntudos', {tab: $scope.tabAtual});
+
+              const id = $window.localStorage.getItem('id');
+              const nome = $window.localStorage.getItem('nome');
+              const notification = {
+                id: id,
+                nome: nome,
+                convidado: form.nome
+              }
+              service.notification(notification);
+            }
+            else{
+              $scope.errorMsg('Erro ao cadastrar convidado');
+            }
+            $scope.loadProgess = false;
+          }).catch(function(err){
+            console.log(err)
+            $scope.loadProgess = false;
+            $scope.errorMsg('Erro ao cadastrar convidado');
+          });
+      }
+
+      $scope.conviteCheck = function(convidado, envite){
+        $scope.loadProgess = true;
+        service.envite({id:convidado.id, envite: envite})
+          .then(function(result){
+            result = result.data;
+            if(result.success){
+              convidado.envite = envite;
+
+              const id = $window.localStorage.getItem('id');
+              const nome = $window.localStorage.getItem('nome');
+              const notification = {
+                id: id,
+                nome: nome,
+                envite: envite.nome
+              }
+              service.notification(notification);
+
+              $scope.envites = $scope.convidados.filter(function(c){return c.envite == 1});
+            }else{
+              $scope.errorMsg('Erro ao marcar como convidado');
+            }
+
+            $scope.loadProgess = false;
+
+          }).catch(function(err){
+            console.log(err)
+            $scope.loadProgess = false;
+            $scope.errorMsg('Erro ao marcar como convidado');
           });
       }
 

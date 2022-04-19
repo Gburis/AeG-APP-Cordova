@@ -33,6 +33,15 @@
       },
       notification: function(params){
         return $http.post(`${API}/api/cloud-messaging`, params);
+      },
+      cadastrarConvidados: function(params){
+        return $http.post(`${API}/api/salvar-convidados`, params);
+      },
+      envite: function(params){
+        return $http.post(`${API}/api/convite-check`, params);
+      },
+      listarConvidados: function(){
+        return $http.get(`${API}/api/listar-convidados`);
       }
     }
   });
