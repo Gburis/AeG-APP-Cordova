@@ -11,5 +11,5 @@ node_modules/
 /platforms/
 
 #config
-www/config.js
+/www/config.js
 
